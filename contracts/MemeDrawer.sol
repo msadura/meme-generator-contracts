@@ -3,21 +3,29 @@ pragma solidity ^0.8.0;
 
 import '@openzeppelin/contracts/access/Ownable.sol';
 import '@openzeppelin/contracts/security/Pausable.sol';
+import "@openzeppelin/contracts/utils/Strings.sol";
+import 'base64-sol/base64.sol';
 import './Authorizable.sol';
 import './interfaces/IMemeDrawer.sol';
 import './interfaces/IMemeGenerator.sol';
 
 contract MemeDrawer is IMemeDrawer, Pausable, Ownable, Authorizable {
+  using Strings for uint256;
+
   IMemeGenerator public generator;
 
-  function getTokenURI(uint256 tokenId) public view returns (string memory) {
+  function getTokenURI(uint256 tokenId) public view override returns (string memory) {
     IMemeGenerator.MemeTraits memory meme = generator.getMemeTraits(tokenId);
-    //add attributes / metadata
+    //TODO: return attributes / metadata
+    return drawSvg(meme);
+  }
+
+  function getMemeSvg(IMemeGenerator.MemeTraits memory meme) public pure returns (string memory) {
     return drawSvg(meme);
   }
 
   function getMemeImage(IMemeGenerator.MemeTraits memory meme) public pure returns (string memory) {
-    return drawSvg(meme);
+    return string(abi.encodePacked('data:image/svg+xml;base64,', Base64.encode(bytes(drawSvg(meme)))));
   }
 
   function drawSvg(IMemeGenerator.MemeTraits memory meme) internal pure returns (string memory) {
@@ -25,9 +33,9 @@ contract MemeDrawer is IMemeDrawer, Pausable, Ownable, Authorizable {
       string(
         abi.encodePacked(
           '<svg id="meme" width="',
-          meme.width,
+          meme.width.toString(),
           '" height="',
-          meme.height,
+          meme.height.toString(),
           '" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">',
           drawBg(meme.image, meme.width, meme.height),
           drawTextTop(meme.textTop, meme.textSize, meme.textColor, meme.textStroke),
@@ -46,9 +54,9 @@ contract MemeDrawer is IMemeDrawer, Pausable, Ownable, Authorizable {
       string(
         abi.encodePacked(
           '<image x="0" y="0" width="',
-          width,
+          width.toString(),
           '" height="',
-          height,
+          height.toString(),
           '"  href="',
           image,
           '"/>'
@@ -123,7 +131,7 @@ contract MemeDrawer is IMemeDrawer, Pausable, Ownable, Authorizable {
           '; color: ',
           color,
           '; font-size: ',
-          size,
+          size.toString(),
           'px; font-weight: bold; font-family: Impact; padding: 0; margin: 0; text-align: center;'
         )
       );

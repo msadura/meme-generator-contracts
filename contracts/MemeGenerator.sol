@@ -18,7 +18,9 @@ contract MemeGenerator is IMemeGenerator, Pausable, Ownable, Authorizable {
   }
 
   function generate(MemeTraits memory meme) external whenNotPaused {
-    // what should be checked first?
+    // TODO: what should be checked first?
+    // width, height + if image + text combination exists?
+
     uint256 tokenId = nft.getNextTokenId();
     memes[tokenId] = meme;
     existingIds[tokenId] = true;

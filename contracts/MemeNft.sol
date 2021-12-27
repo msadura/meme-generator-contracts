@@ -67,45 +67,7 @@ contract NFTMM is IMemeNft, ERC721Enumerable, Ownable, Authorizable {
     drawer = IMemeDrawer(_drawer);
   }
 
-  function tokenURI(uint256 tokenId) public pure override returns (string memory) {
-    // get token uri from drawer
-    return '';
+  function tokenURI(uint256 tokenId) public view override returns (string memory) {
+    return drawer.getTokenURI(tokenId);
   }
-
-  // function drawSvg(uint256 tokenId) private {
-  //     Meme memory traits = getTokenTraits(tokenId);
-
-  //     string memory svgString = string(abi.encodePacked(
-  //     drawTrait(traitData[0 + shift][s.body]),
-  //     s.isWizard ? drawTrait(traitData[1 + shift][s.head]) : drawTrait(traitData[1 + shift][s.rankIndex]),
-  //     s.isWizard ? drawTrait(traitData[2 + shift][s.spell]) : '',
-  //     drawTrait(traitData[3 + shift][s.eyes]),
-  //     s.isWizard ? drawTrait(traitData[4 + shift][s.neck]) : '',
-  //     drawTrait(traitData[5 + shift][s.mouth]),
-  //     s.isWizard ? '' : drawTrait(traitData[6 + shift][s.tail]),
-  //     s.isWizard ? drawTrait(traitData[7 + shift][s.wand]) : ''
-  // ));
-
-  // return string(abi.encodePacked(
-  //   '<svg id="wndNFT" width="100%" height="100%" version="1.1" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">',
-  //   svgString,
-  //   "</svg>"
-  // ));
-  // }
-
-  // function drawBg(string img, uint256 width, uint256 height) internal pure returns (string memory) {
-  //     return string(abi.encodePacked(
-  //         '<image width="',
-  //         width,
-  //         '" height="',
-  //         height,
-  //         '"xlink:href="data:image/png;base64,',
-  //         bg,
-  //         '"/>'
-  //     ));
-  // }
-
-  // function getTokenTraits(uint256 tokenId) returns (memory Meme) {
-  //     return memes[tokenId];
-  // }
 }

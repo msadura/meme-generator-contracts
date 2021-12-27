@@ -12,9 +12,6 @@ interface IMemeGenerator {
     uint256 textSize;
     string textColor;
     string textStroke;
-    string hashtags;
-    address nftTokenAddress;
-    uint256 nftTokenId;
   }
 
   function getMemeTraits(uint256 tokenId) external view returns (MemeTraits memory);
