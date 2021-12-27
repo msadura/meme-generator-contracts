@@ -4,3 +4,4 @@ import './block-number';
 import './fund-link';
 
 import './example';
+import './memes';

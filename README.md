@@ -15,18 +15,5 @@ npx hardhat help
 ```
 
 ## Deploy order:
-- Random
-- NFT - maxTokens
-- Traits
-- GameToken
-- GameMain
-- GameTower
 
 ## Deploy Steps:
-- Random - get random value from chainlink
-- Nft - setContracts(traits, tower, rand)
-- Traits - setNftAddreess(nft addr)
-- Traits - setBaseURI(api_url)
-- GameMain - setContracts(token, traits, nft, alter, random)
-- GameTower - setContracts(nft, token, game, random)
-- GameAltar ? setBaseUri
