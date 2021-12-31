@@ -25,7 +25,7 @@ task('meme:init', 'Initial game steps').setAction(async (taskArgs, hre) => {
     signer
   );
 
-  const initSteps = [1, 2, 3, 4, 5];
+  const initSteps = [3];
 
   const steps: Record<number, () => Promise<void>> = {
     1: async () => {
@@ -40,7 +40,7 @@ task('meme:init', 'Initial game steps').setAction(async (taskArgs, hre) => {
     },
     3: async () => {
       console.log('🔥', 'generator -> setContracts(nft, bank)');
-      const tx = await generatorContract.addAdmin(CONTRACTS.nft, CONTRACTS.bank);
+      const tx = await generatorContract.setContracts(CONTRACTS.nft, CONTRACTS.bank);
       await tx.wait();
     },
     4: async () => {
@@ -50,7 +50,7 @@ task('meme:init', 'Initial game steps').setAction(async (taskArgs, hre) => {
     },
     5: async () => {
       console.log('🔥', 'drawer -> setContracts(bank)');
-      const tx = await drawerContract.addAdmin(CONTRACTS.bank);
+      const tx = await drawerContract.setContracts(CONTRACTS.bank);
       await tx.wait();
     }
   };

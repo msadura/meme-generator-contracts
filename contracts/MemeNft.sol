@@ -9,7 +9,7 @@ import './Authorizable.sol';
 import './interfaces/IMemeDrawer.sol';
 import './interfaces/IMemeNft.sol';
 
-contract NFTMM is IMemeNft, ERC721Enumerable, Ownable, Authorizable {
+contract MemeNft is IMemeNft, ERC721Enumerable, Ownable, Authorizable {
   using SafeMath for uint256;
   using Counters for Counters.Counter;
 
@@ -68,6 +68,7 @@ contract NFTMM is IMemeNft, ERC721Enumerable, Ownable, Authorizable {
   }
 
   function tokenURI(uint256 tokenId) public view override returns (string memory) {
+    require(_exists(tokenId), "Token ID does not exist");
     return drawer.getTokenURI(tokenId);
   }
 }

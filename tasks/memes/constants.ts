@@ -1,6 +1,6 @@
 export const CONTRACTS = {
-  drawer: '0x00BF5096D4dBDB3006319d682E798233F9EA067E',
-  bank: '',
-  generator: '',
-  nft: ''
+  drawer: '0x46bE38dd765010c4fE4384fD4678316227AC5A8e',
+  bank: '0xe630b6E26bC583b4CB11908Fb6F23fd4381b129a',
+  generator: '0x54882Bf4277Fe4650B9fF98f3c95cd776cD7DC93',
+  nft: '0x5fd587478d5531F4a342EDCb51E4cac7E3B0580E'
 };

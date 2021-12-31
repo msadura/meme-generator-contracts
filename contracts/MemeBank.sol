@@ -11,7 +11,6 @@ contract MemeBank is IMemeBank, Ownable, Authorizable {
   mapping(uint256 => MemeTraits) public memes;
   mapping(uint256 => bool) public existingIds;
 
-
   function getMemeTraits(uint256 tokenId) external view override returns (MemeTraits memory) {
     return memes[tokenId];
   }

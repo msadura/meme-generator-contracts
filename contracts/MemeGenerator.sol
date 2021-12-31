@@ -9,8 +9,8 @@ import './interfaces/IMemeGenerator.sol';
 import './interfaces/IMemeBank.sol';
 
 contract MemeGenerator is IMemeGenerator, Pausable, Ownable, Authorizable {
-  IMemeNft nft;
-  IMemeBank bank;
+  IMemeNft public nft;
+  IMemeBank public bank;
 
   constructor() {
     _pause();
@@ -29,5 +29,10 @@ contract MemeGenerator is IMemeGenerator, Pausable, Ownable, Authorizable {
   function setContracts(address _nft, address _bank) external onlyOwner {
     nft = IMemeNft(_nft);
     bank = IMemeBank(_bank);
+  }
+
+  function setPaused(bool _paused) external onlyOwner {
+    if (_paused) _pause();
+    else _unpause();
   }
 }

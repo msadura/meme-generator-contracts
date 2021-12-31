@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import '@openzeppelin/contracts/access/Ownable.sol';
 import '@openzeppelin/contracts/security/Pausable.sol';
-import "@openzeppelin/contracts/utils/Strings.sol";
+import '@openzeppelin/contracts/utils/Strings.sol';
 import 'base64-sol/base64.sol';
 import './Authorizable.sol';
 import './interfaces/IMemeDrawer.sol';
@@ -18,43 +18,46 @@ contract MemeDrawer is IMemeDrawer, Pausable, Ownable, Authorizable {
     IMemeBank.MemeTraits memory meme = bank.getMemeTraits(tokenId);
     //TODO: return attributes / metadata
 
-    string memory metadata = string(abi.encodePacked(
-      '{"name": "',
-      'DAC Meme #',
-      tokenId.toString(),
-      '", "description": "Beft memes in the world generated onchain! No IPFS. NO API. Just the Ethereum blockchain.", "image": "data:image/svg+xml;base64,',
-      getMemeImage(meme),
-      '", "attributes":',
-      compileAttributes(tokenId),
-      "}"
-    ));
+    string memory metadata = string(
+      abi.encodePacked(
+        '{"name": "',
+        'DAC Meme #',
+        tokenId.toString(),
+        '", "description": "Best memes in the world generated onchain! No IPFS. NO API. Just the Ethereum blockchain.", "image": "data:image/svg+xml;base64,',
+        getMemeImage(meme),
+        '", "attributes":',
+        compileAttributes(tokenId),
+        '}'
+      )
+    );
 
-    return string(abi.encodePacked(
-      "data:application/json;base64,",
-      Base64.encode(bytes(metadata))
-    ));
+    return
+      string(abi.encodePacked('data:application/json;base64,', Base64.encode(bytes(metadata))));
   }
 
   function compileAttributes(uint256 tokenId) internal view returns (string memory) {
     //TODO: any other attrs?
     IMemeBank.MemeTraits memory meme = bank.getMemeTraits(tokenId);
-        return string(abi.encodePacked(
-      '[',
-      '{"trait_type":"TextTop","value":',
-      meme.textTop,
-      '},{"trait_type":"TextBottom","value":',
-      meme.textBottom,
-      '}]'
-    ));
+    return
+      string(
+        abi.encodePacked(
+          '[',
+          '{"trait_type":"TextTop","value":',
+          meme.textTop,
+          '},{"trait_type":"TextBottom","value":',
+          meme.textBottom,
+          '}]'
+        )
+      );
   }
-
 
   function getMemeSvg(IMemeBank.MemeTraits memory meme) public pure returns (string memory) {
     return drawSvg(meme);
   }
 
   function getMemeImage(IMemeBank.MemeTraits memory meme) public pure returns (string memory) {
-    return string(abi.encodePacked('data:image/svg+xml;base64,', Base64.encode(bytes(drawSvg(meme)))));
+    return
+      string(abi.encodePacked('data:image/svg+xml;base64,', Base64.encode(bytes(drawSvg(meme)))));
   }
 
   function drawSvg(IMemeBank.MemeTraits memory meme) internal pure returns (string memory) {
