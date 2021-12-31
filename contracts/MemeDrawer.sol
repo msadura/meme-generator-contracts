@@ -7,28 +7,57 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import 'base64-sol/base64.sol';
 import './Authorizable.sol';
 import './interfaces/IMemeDrawer.sol';
-import './interfaces/IMemeGenerator.sol';
+import './interfaces/IMemeBank.sol';
 
 contract MemeDrawer is IMemeDrawer, Pausable, Ownable, Authorizable {
   using Strings for uint256;
 
-  IMemeGenerator public generator;
+  IMemeBank public bank;
 
   function getTokenURI(uint256 tokenId) public view override returns (string memory) {
-    IMemeGenerator.MemeTraits memory meme = generator.getMemeTraits(tokenId);
+    IMemeBank.MemeTraits memory meme = bank.getMemeTraits(tokenId);
     //TODO: return attributes / metadata
+
+    string memory metadata = string(abi.encodePacked(
+      '{"name": "',
+      'DAC Meme #',
+      tokenId.toString(),
+      '", "description": "Beft memes in the world generated onchain! No IPFS. NO API. Just the Ethereum blockchain.", "image": "data:image/svg+xml;base64,',
+      getMemeImage(meme),
+      '", "attributes":',
+      compileAttributes(tokenId),
+      "}"
+    ));
+
+    return string(abi.encodePacked(
+      "data:application/json;base64,",
+      Base64.encode(bytes(metadata))
+    ));
+  }
+
+  function compileAttributes(uint256 tokenId) internal view returns (string memory) {
+    //TODO: any other attrs?
+    IMemeBank.MemeTraits memory meme = bank.getMemeTraits(tokenId);
+        return string(abi.encodePacked(
+      '[',
+      '{"trait_type":"TextTop","value":',
+      meme.textTop,
+      '},{"trait_type":"TextBottom","value":',
+      meme.textBottom,
+      '}]'
+    ));
+  }
+
+
+  function getMemeSvg(IMemeBank.MemeTraits memory meme) public pure returns (string memory) {
     return drawSvg(meme);
   }
 
-  function getMemeSvg(IMemeGenerator.MemeTraits memory meme) public pure returns (string memory) {
-    return drawSvg(meme);
-  }
-
-  function getMemeImage(IMemeGenerator.MemeTraits memory meme) public pure returns (string memory) {
+  function getMemeImage(IMemeBank.MemeTraits memory meme) public pure returns (string memory) {
     return string(abi.encodePacked('data:image/svg+xml;base64,', Base64.encode(bytes(drawSvg(meme)))));
   }
 
-  function drawSvg(IMemeGenerator.MemeTraits memory meme) internal pure returns (string memory) {
+  function drawSvg(IMemeBank.MemeTraits memory meme) internal pure returns (string memory) {
     return
       string(
         abi.encodePacked(
@@ -138,6 +167,6 @@ contract MemeDrawer is IMemeDrawer, Pausable, Ownable, Authorizable {
   }
 
   function setContracts(address _generator) external onlyOwner {
-    generator = IMemeGenerator(_generator);
+    bank = IMemeBank(_generator);
   }
 }

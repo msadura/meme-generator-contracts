@@ -6,39 +6,28 @@ import '@openzeppelin/contracts/security/Pausable.sol';
 import './Authorizable.sol';
 import './interfaces/IMemeNft.sol';
 import './interfaces/IMemeGenerator.sol';
+import './interfaces/IMemeBank.sol';
 
 contract MemeGenerator is IMemeGenerator, Pausable, Ownable, Authorizable {
-  mapping(uint256 => MemeTraits) public memes;
-  mapping(uint256 => bool) public existingIds;
-
   IMemeNft nft;
+  IMemeBank bank;
 
   constructor() {
     _pause();
   }
 
-  function generate(MemeTraits memory meme) external whenNotPaused {
+  function generate(IMemeBank.MemeTraits memory meme) external whenNotPaused {
     // TODO: what should be checked first?
+    // min / max valid width and height?
     // width, height + if image + text combination exists?
 
     uint256 tokenId = nft.getNextTokenId();
-    memes[tokenId] = meme;
-    existingIds[tokenId] = true;
+    bank.setMemeTraits(tokenId, meme);
     nft.mint();
   }
 
-  function getMemeTraits(uint256 tokenId) external view override returns (MemeTraits memory) {
-    require(existingIds[tokenId], 'Meme not minter or traits are broken');
-
-    return memes[tokenId];
-  }
-
-  function setContracts(address _nft) external onlyOwner {
+  function setContracts(address _nft, address _bank) external onlyOwner {
     nft = IMemeNft(_nft);
-  }
-
-  function setMemeTraits(uint256 tokenId, MemeTraits memory meme) external onlyAdmin {
-    require(existingIds[tokenId], 'Meme not minter or traits are broken');
-    memes[tokenId] = meme;
+    bank = IMemeBank(_bank);
   }
 }
