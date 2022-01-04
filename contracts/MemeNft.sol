@@ -22,17 +22,17 @@ contract MemeNft is IMemeNft, ERC721Enumerable, Ownable, Authorizable {
     _tokenIds.increment();
   }
 
-  function mint() external override {
+  function mint(address toAddress) external override {
     if (adminOnlyMint) {
       require(isAdmin(), 'You cannot mint tokens directly!');
     }
 
-    _mintSingle();
+    _mintSingle(toAddress);
   }
 
-  function _mintSingle() private {
+  function _mintSingle(address addr) private {
     uint256 newTokenID = _tokenIds.current();
-    _safeMint(msg.sender, newTokenID);
+    _safeMint(addr, newTokenID);
     _tokenIds.increment();
   }
 

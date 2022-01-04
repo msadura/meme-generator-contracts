@@ -23,7 +23,7 @@ contract MemeGenerator is IMemeGenerator, Pausable, Ownable, Authorizable {
 
     uint256 tokenId = nft.getNextTokenId();
     bank.setMemeTraits(tokenId, meme);
-    nft.mint();
+    nft.mint(_msgSender());
   }
 
   function setContracts(address _nft, address _bank) external onlyOwner {

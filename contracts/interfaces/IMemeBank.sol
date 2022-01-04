@@ -7,11 +7,7 @@ interface IMemeBank {
     string image;
     uint256 width;
     uint256 height;
-    string textTop;
-    string textBottom;
-    uint256 textSize;
-    string textColor;
-    string textStroke;
+    string theme;
   }
 
   function getMemeTraits(uint256 tokenId) external view returns (MemeTraits memory);

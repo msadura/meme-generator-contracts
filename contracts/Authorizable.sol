@@ -6,7 +6,11 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 contract Authorizable is Ownable {
   mapping(address => bool) admins;
 
-  function isAdmin() public view returns (bool) {
+  function hasAdmin(address addr) external view returns (bool) {
+    return owner() == addr || admins[addr];
+  }
+
+  function isAdmin() internal view returns (bool) {
     return owner() == _msgSender() || admins[_msgSender()] || admins[tx.origin];
   }
 

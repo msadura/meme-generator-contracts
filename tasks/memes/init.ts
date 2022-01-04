@@ -25,7 +25,7 @@ task('meme:init', 'Initial game steps').setAction(async (taskArgs, hre) => {
     signer
   );
 
-  const initSteps = [3];
+  const initSteps = [1, 5];
 
   const steps: Record<number, () => Promise<void>> = {
     1: async () => {
