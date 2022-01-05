@@ -1,6 +1,8 @@
 import { task } from 'hardhat/config';
 import { CONTRACTS } from './constants';
 
+const initSteps = [1, 5];
+
 task('meme:init', 'Initial game steps').setAction(async (taskArgs, hre) => {
   const { network, ethers } = hre;
 
@@ -16,21 +18,21 @@ task('meme:init', 'Initial game steps').setAction(async (taskArgs, hre) => {
   const nftContract = new ethers.Contract(CONTRACTS.nft, nftFactory.interface, signer);
   const bankFactory = await ethers.getContractFactory('MemeBank');
   const bankContract = new ethers.Contract(CONTRACTS.bank, bankFactory.interface, signer);
-  const drawerFactory = await ethers.getContractFactory('MemeDrawer');
-  const drawerContract = new ethers.Contract(CONTRACTS.drawer, drawerFactory.interface, signer);
+  // const drawerFactory = await ethers.getContractFactory('MemeDrawer');
+  // const drawerContract = new ethers.Contract(CONTRACTS.drawer, drawerFactory.interface, signer);
   const generatorFactory = await ethers.getContractFactory('MemeGenerator');
   const generatorContract = new ethers.Contract(
     CONTRACTS.generator,
     generatorFactory.interface,
     signer
   );
-
-  const initSteps = [1, 5];
+  const traitsFactory = await ethers.getContractFactory('MemeTraits');
+  const traitsContract = new ethers.Contract(CONTRACTS.traits, traitsFactory.interface, signer);
 
   const steps: Record<number, () => Promise<void>> = {
     1: async () => {
-      console.log('🔥', 'nft -> setContracts(drawer)');
-      const tx = await nftContract.setContracts(CONTRACTS.drawer);
+      console.log('🔥', 'nft -> setContracts(traits)');
+      const tx = await nftContract.setContracts(CONTRACTS.traits);
       await tx.wait();
     },
     2: async () => {
@@ -49,8 +51,8 @@ task('meme:init', 'Initial game steps').setAction(async (taskArgs, hre) => {
       await tx.wait();
     },
     5: async () => {
-      console.log('🔥', 'drawer -> setContracts(bank)');
-      const tx = await drawerContract.setContracts(CONTRACTS.bank);
+      console.log('🔥', 'traits -> setContracts(bank)');
+      const tx = await traitsContract.setContracts(CONTRACTS.bank);
       await tx.wait();
     }
   };

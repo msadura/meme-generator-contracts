@@ -6,7 +6,7 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 import '@openzeppelin/contracts/utils/math/SafeMath.sol';
 import '@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol';
 import './Authorizable.sol';
-import './interfaces/IMemeDrawer.sol';
+import './interfaces/IMemeTraits.sol';
 import './interfaces/IMemeNft.sol';
 
 contract MemeNft is IMemeNft, ERC721Enumerable, Ownable, Authorizable {
@@ -16,7 +16,7 @@ contract MemeNft is IMemeNft, ERC721Enumerable, Ownable, Authorizable {
   Counters.Counter private _tokenIds;
   bool public adminOnlyMint = true;
 
-  IMemeDrawer public drawer;
+  IMemeTraits public traits;
 
   constructor() ERC721('NFT MM', 'NFTMM') {
     _tokenIds.increment();
@@ -63,12 +63,12 @@ contract MemeNft is IMemeNft, ERC721Enumerable, Ownable, Authorizable {
     adminOnlyMint = _adminOnly;
   }
 
-  function setContracts(address _drawer) external onlyOwner {
-    drawer = IMemeDrawer(_drawer);
+  function setContracts(address _traits) external onlyOwner {
+    traits = IMemeTraits(_traits);
   }
 
   function tokenURI(uint256 tokenId) public view override returns (string memory) {
     require(_exists(tokenId), "Token ID does not exist");
-    return drawer.getTokenURI(tokenId);
+    return traits.getTokenURI(tokenId);
   }
 }

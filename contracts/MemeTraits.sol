@@ -6,10 +6,10 @@ import '@openzeppelin/contracts/security/Pausable.sol';
 import '@openzeppelin/contracts/utils/Strings.sol';
 import 'base64-sol/base64.sol';
 import './Authorizable.sol';
-import './interfaces/IMemeDrawer.sol';
+import './interfaces/IMemeTraits.sol';
 import './interfaces/IMemeBank.sol';
 
-contract MemeDrawer is IMemeDrawer, Pausable, Ownable, Authorizable {
+contract MemeTraits is IMemeTraits, Pausable, Ownable, Authorizable {
   using Strings for uint256;
 
   IMemeBank public bank;
@@ -41,9 +41,9 @@ contract MemeDrawer is IMemeDrawer, Pausable, Ownable, Authorizable {
       string(
         abi.encodePacked(
           '[',
-          '{"trait_type":"Theme","value":',
+          '{"trait_type":"Theme","value":"',
           meme.theme,
-          '}]'
+          '"}]'
         )
       );
   }

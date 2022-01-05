@@ -2,6 +2,6 @@
 
 pragma solidity ^0.8.0;
 
-interface IMemeDrawer {
+interface IMemeTraits {
   function getTokenURI(uint256 tokenId) external view returns (string memory);
 }
