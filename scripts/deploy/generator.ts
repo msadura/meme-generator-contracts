@@ -7,7 +7,7 @@ import { ethers, run } from 'hardhat';
 
 const CONTRACT_NAME = 'MemeGenerator';
 
-async function main() {
+export default async function main() {
   const factory = await ethers.getContractFactory(CONTRACT_NAME);
 
   const contract = await factory.deploy();

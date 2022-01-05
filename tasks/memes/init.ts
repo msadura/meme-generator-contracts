@@ -1,7 +1,7 @@
 import { task } from 'hardhat/config';
 import { CONTRACTS } from './constants';
 
-const initSteps = [1, 5];
+const initSteps = [1, 2, 3, 4, 5];
 
 task('meme:init', 'Initial game steps').setAction(async (taskArgs, hre) => {
   const { network, ethers } = hre;
