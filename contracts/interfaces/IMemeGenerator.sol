@@ -3,5 +3,5 @@
 pragma solidity ^0.8.0;
 
 interface IMemeGenerator {
-
+  event Generate(address indexed from, uint256 indexed tokenId);
 }

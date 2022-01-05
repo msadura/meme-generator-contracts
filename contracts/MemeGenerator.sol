@@ -17,13 +17,13 @@ contract MemeGenerator is IMemeGenerator, Pausable, Ownable, Authorizable {
   }
 
   function generate(IMemeBank.MemeTraits memory meme) external whenNotPaused {
-    // TODO: what should be checked first?
-    // min / max valid width and height?
-    // width, height + if image + text combination exists?
+    require(_msgSender() == tx.origin, "Cannot mint from contract");
 
     uint256 tokenId = nft.getNextTokenId();
     bank.setMemeTraits(tokenId, meme);
     nft.mint(_msgSender());
+
+    emit Generate(_msgSender(), tokenId);
   }
 
   function setContracts(address _nft, address _bank) external onlyOwner {
