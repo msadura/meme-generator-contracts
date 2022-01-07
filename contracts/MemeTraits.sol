@@ -25,6 +25,8 @@ contract MemeTraits is IMemeTraits, Pausable, Ownable, Authorizable {
         tokenId.toString(),
         '", "description": "Best memes in the world generated onchain! Make your meme unique.", "image": "',
         meme.image,
+        '", "width": "', meme.width.toString(),
+        '", "height": "', meme.height.toString(),
         '", "attributes":',
         compileAttributes(tokenId),
         '}'
