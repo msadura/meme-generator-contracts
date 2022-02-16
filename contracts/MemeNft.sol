@@ -9,7 +9,7 @@ import './Authorizable.sol';
 import './interfaces/IMemeTraits.sol';
 import './interfaces/IMemeNft.sol';
 
-contract MemeNft is IMemeNft, ERC721Enumerable, Ownable, Authorizable {
+contract MemeNft is ERC721Enumerable, Ownable, Authorizable {
   using SafeMath for uint256;
   using Counters for Counters.Counter;
 
@@ -22,7 +22,7 @@ contract MemeNft is IMemeNft, ERC721Enumerable, Ownable, Authorizable {
     _tokenIds.increment();
   }
 
-  function mint(address toAddress) external override {
+  function mint(address toAddress) external {
     if (adminOnlyMint) {
       require(isAdmin(), 'You cannot mint tokens directly!');
     }
@@ -55,7 +55,7 @@ contract MemeNft is IMemeNft, ERC721Enumerable, Ownable, Authorizable {
     require(success, 'Transfer failed.');
   }
 
-  function getNextTokenId() public view override returns (uint256) {
+  function getNextTokenId() public view returns (uint256) {
     return _tokenIds.current();
   }
 

@@ -30,11 +30,11 @@ task('meme:init', 'Initial game steps').setAction(async (taskArgs, hre) => {
   const traitsContract = new ethers.Contract(CONTRACTS.traits, traitsFactory.interface, signer);
 
   const steps: Record<number, () => Promise<void>> = {
-    1: async () => {
-      console.log('🔥', 'nft -> setContracts(traits)');
-      const tx = await nftContract.setContracts(CONTRACTS.traits);
-      await tx.wait();
-    },
+    // 1: async () => {
+    //   console.log('🔥', 'nft -> setContracts(traits)');
+    //   const tx = await nftContract.setContracts(CONTRACTS.traits);
+    //   await tx.wait();
+    // },
     2: async () => {
       console.log('🔥', 'nft -> addAdmin(generator)');
       const tx = await nftContract.addAdmin(CONTRACTS.generator);
@@ -49,12 +49,12 @@ task('meme:init', 'Initial game steps').setAction(async (taskArgs, hre) => {
       console.log('🔥', 'bank -> addAdmin(generator)');
       const tx = await bankContract.addAdmin(CONTRACTS.generator);
       await tx.wait();
-    },
-    5: async () => {
-      console.log('🔥', 'traits -> setContracts(bank)');
-      const tx = await traitsContract.setContracts(CONTRACTS.bank);
-      await tx.wait();
     }
+    // 5: async () => {
+    //   console.log('🔥', 'traits -> setContracts(bank)');
+    //   const tx = await traitsContract.setContracts(CONTRACTS.bank);
+    //   await tx.wait();
+    // }
   };
 
   try {

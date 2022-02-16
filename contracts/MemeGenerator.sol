@@ -36,12 +36,12 @@ contract MemeGenerator is IMemeGenerator, Pausable, Ownable, Authorizable {
     else _unpause();
   }
 
-  function getLatest(uint256 count) external view returns (IMemeGenerator.LastItem[] memory) {
+  function getLatest() external view returns (IMemeGenerator.LastItem[10] memory) {
     uint256 latestId = nft.totalSupply();
-    uint256 firstCheckId = latestId - count;
-    IMemeGenerator.LastItem[] memory items;
+    uint256 firstCheckId = latestId - 10;
+    IMemeGenerator.LastItem[10] memory items;
 
-    for (uint256 i = 0; i < count; i++) {
+    for (uint256 i = 0; i < 10; i++) {
       uint256 _id = firstCheckId + i;
       items[i] = IMemeGenerator.LastItem(_id, nft.tokenURI(_id));
     }
