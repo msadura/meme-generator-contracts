@@ -41,7 +41,7 @@ contract MemeGenerator is IMemeGenerator, Pausable, Ownable, Authorizable {
     uint256 firstCheckId = latestId - 10;
     IMemeGenerator.LastItem[10] memory items;
 
-    for (uint256 i = 0; i < 10; i++) {
+    for (uint256 i = 1; i <= 10; i++) {
       uint256 _id = firstCheckId + i;
       items[i] = IMemeGenerator.LastItem(_id, nft.tokenURI(_id));
     }
