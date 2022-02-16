@@ -30,11 +30,18 @@ module.exports = {
     runOnCompile: true,
     strict: true
   },
-  defaultNetwork: 'rinkeby',
+  defaultNetwork: 'mumbai',
   networks: {
     rinkeby: {
       url: `https://rinkeby-light.eth.linkpool.io/`,
       chainId: 4,
+      accounts: {
+        mnemonic: process.env.MNEMONIC
+      }
+    },
+    mumbai: {
+      url: `https://polygon-mumbai.g.alchemy.com/v2/p2KQ7TpI9C6Pn7jL8QbZoFpBcqDukHFY`,
+      chainId: 80001,
       accounts: {
         mnemonic: process.env.MNEMONIC
       }
@@ -64,7 +71,13 @@ module.exports = {
     }
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY
+    // apiKey: process.env.ETHERSCAN_API_KEY_POLYGON
+    apiKey: {
+      mainnet: process.env.ETHERSCAN_API_KEY,
+      rinkeby: process.env.ETHERSCAN_API_KEY,
+      polygon: process.env.ETHERSCAN_API_KEY_POLYGON,
+      polygonMumbai: process.env.ETHERSCAN_API_KEY_POLYGON
+    }
   },
   namedAccounts: {
     deployer: 0,

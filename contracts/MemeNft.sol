@@ -68,7 +68,7 @@ contract MemeNft is IMemeNft, ERC721Enumerable, Ownable, Authorizable {
   }
 
   function tokenURI(uint256 tokenId) public view override returns (string memory) {
-    require(_exists(tokenId), "Token ID does not exist");
+    require(_exists(tokenId), 'Token ID does not exist');
     return traits.getTokenURI(tokenId);
   }
 }

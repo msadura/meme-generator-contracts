@@ -17,7 +17,7 @@ contract MemeGenerator is IMemeGenerator, Pausable, Ownable, Authorizable {
   }
 
   function generate(IMemeBank.MemeTraits memory meme) external whenNotPaused {
-    require(_msgSender() == tx.origin, "Cannot mint from contract");
+    require(_msgSender() == tx.origin, 'Cannot mint from contract');
 
     uint256 tokenId = nft.getNextTokenId();
     bank.setMemeTraits(tokenId, meme);
@@ -34,5 +34,18 @@ contract MemeGenerator is IMemeGenerator, Pausable, Ownable, Authorizable {
   function setPaused(bool _paused) external onlyOwner {
     if (_paused) _pause();
     else _unpause();
+  }
+
+  function getLatest(uint256 count) external view returns (IMemeGenerator.LastItem[] memory) {
+    uint256 latestId = nft.totalSupply();
+    uint256 firstCheckId = latestId - count;
+    IMemeGenerator.LastItem[] memory items;
+
+    for (uint256 i = 0; i < count; i++) {
+      uint256 _id = firstCheckId + i;
+      items[i] = IMemeGenerator.LastItem(_id, nft.tokenURI(_id));
+    }
+
+    return items;
   }
 }

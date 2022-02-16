@@ -25,8 +25,10 @@ contract MemeTraits is IMemeTraits, Pausable, Ownable, Authorizable {
         tokenId.toString(),
         '", "description": "Best memes in the world generated onchain! Make your meme unique.", "image": "',
         meme.image,
-        '", "width": "', meme.width.toString(),
-        '", "height": "', meme.height.toString(),
+        '", "width": "',
+        meme.width.toString(),
+        '", "height": "',
+        meme.height.toString(),
         '", "attributes":',
         compileAttributes(tokenId),
         '}'
@@ -39,15 +41,7 @@ contract MemeTraits is IMemeTraits, Pausable, Ownable, Authorizable {
 
   function compileAttributes(uint256 tokenId) internal view returns (string memory) {
     IMemeBank.MemeTraits memory meme = bank.getMemeTraits(tokenId);
-    return
-      string(
-        abi.encodePacked(
-          '[',
-          '{"trait_type":"Theme","value":"',
-          meme.theme,
-          '"}]'
-        )
-      );
+    return string(abi.encodePacked('[', '{"trait_type":"Theme","value":"', meme.theme, '"}]'));
   }
 
   function setContracts(address _generator) external onlyOwner {

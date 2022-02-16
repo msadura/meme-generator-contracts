@@ -26,7 +26,7 @@ contract MemeBank is IMemeBank, Ownable, Authorizable {
     return existingIds[tokenId];
   }
 
-    function doesImageExist(string memory image) external view override returns (bool) {
+  function doesImageExist(string memory image) external view override returns (bool) {
     return existingImages[image];
   }
 }
