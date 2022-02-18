@@ -8,7 +8,6 @@ interface IMemeBank {
     uint256 width;
     uint256 height;
     string theme;
-    string[] hashtags;
   }
 
   function getMemeTraits(uint256 tokenId) external view returns (MemeTraits memory);
