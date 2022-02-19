@@ -46,6 +46,13 @@ module.exports = {
         mnemonic: process.env.MNEMONIC
       }
     },
+    matic: {
+      url: `https://polygon-mainnet.infura.io/v3/998804b23fd0421e9bbea7c41917c2b3`,
+      chainId: 137,
+      accounts: {
+        mnemonic: process.env.MNEMONIC
+      }
+    },
     mainnet: {
       url: `https://mainnet.infura.io/v3/d0b94e25c5ae40cb875772a3752108cf`,
       chainId: 1,

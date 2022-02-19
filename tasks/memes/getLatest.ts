@@ -17,6 +17,7 @@ task('meme:latest', 'get svg image from drawer').setAction(async (taskArgs, hre)
   const contract = new ethers.Contract(CONTRACTS.generator, factory.interface, signer);
 
   try {
+    console.log('🔥', 'try latest load');
     const res = await contract.getLatest();
     console.log('🔥', `Latest 10 memes metadata:`, res.toString());
   } catch (e) {
