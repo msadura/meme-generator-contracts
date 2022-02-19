@@ -5,7 +5,7 @@
 // Runtime Environment's members available in the global scope.
 import { ethers, run } from 'hardhat';
 
-const CONTRACT_NAME = 'MemeNft';
+const CONTRACT_NAME = 'ProofOfMeme';
 
 export default async function main() {
   const factory = await ethers.getContractFactory(CONTRACT_NAME);

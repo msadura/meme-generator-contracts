@@ -7,7 +7,7 @@ import './Authorizable.sol';
 import './interfaces/IMemeNft.sol';
 import './interfaces/IMemeBank.sol';
 
-contract MemeBank is IMemeBank, Ownable, Authorizable {
+contract ProofOfMemeBank is IMemeBank, Ownable, Authorizable {
   mapping(uint256 => MemeTraits) public memes;
   mapping(uint256 => bool) public existingIds;
   mapping(string => bool) public existingImages;

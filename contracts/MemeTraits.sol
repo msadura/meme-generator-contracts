@@ -9,14 +9,13 @@ import './Authorizable.sol';
 import './interfaces/IMemeTraits.sol';
 import './interfaces/IMemeBank.sol';
 
-contract MemeTraits is IMemeTraits, Pausable, Ownable, Authorizable {
+contract ProofOfMemeTraits is IMemeTraits, Pausable, Ownable, Authorizable {
   using Strings for uint256;
 
   IMemeBank public bank;
 
   function getTokenURI(uint256 tokenId) public view override returns (string memory) {
     IMemeBank.MemeTraits memory meme = bank.getMemeTraits(tokenId);
-    //TODO: return attributes / metadata
 
     string memory metadata = string(
       abi.encodePacked(

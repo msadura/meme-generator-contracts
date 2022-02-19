@@ -8,7 +8,7 @@ import './interfaces/IMemeNft.sol';
 import './interfaces/IMemeGenerator.sol';
 import './interfaces/IMemeBank.sol';
 
-contract MemeGenerator is IMemeGenerator, Pausable, Ownable, Authorizable {
+contract ProofOfMemeGenerator is IMemeGenerator, Pausable, Ownable, Authorizable {
   IMemeNft public nft;
   IMemeBank public bank;
 

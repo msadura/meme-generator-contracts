@@ -9,7 +9,7 @@ import './Authorizable.sol';
 import './interfaces/IMemeTraits.sol';
 import './interfaces/IMemeNft.sol';
 
-contract MemeNft is ERC721Enumerable, Ownable, Authorizable {
+contract ProoOfMeme is ERC721Enumerable, Ownable, Authorizable {
   using SafeMath for uint256;
   using Counters for Counters.Counter;
 
@@ -18,7 +18,7 @@ contract MemeNft is ERC721Enumerable, Ownable, Authorizable {
 
   IMemeTraits public traits;
 
-  constructor() ERC721('NFT MM', 'NFTMM') {
+  constructor() ERC721('Proof Of Meme', 'POM') {
     _tokenIds.increment();
   }
 
