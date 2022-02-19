@@ -9,7 +9,7 @@ import './Authorizable.sol';
 import './interfaces/IMemeTraits.sol';
 import './interfaces/IMemeNft.sol';
 
-contract ProoOfMeme is ERC721Enumerable, Ownable, Authorizable {
+contract ProofOfMeme is ERC721Enumerable, Ownable, Authorizable {
   using SafeMath for uint256;
   using Counters for Counters.Counter;
 

@@ -22,7 +22,7 @@ task('meme:toggle', 'get random number from generator')
     const accounts = await ethers.getSigners();
     const signer = accounts[0];
 
-    const factory = await ethers.getContractFactory('MemeGenerator');
+    const factory = await ethers.getContractFactory('ProofOfMemeGenerator');
     const contract = new ethers.Contract(CONTRACTS.generator, factory.interface, signer);
 
     console.log('🔥', `Toggling game state - ${paused ? 'PAUSE' : 'UNPAUSE'}`);

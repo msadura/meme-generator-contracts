@@ -14,19 +14,19 @@ task('meme:init', 'Initial game steps').setAction(async (taskArgs, hre) => {
   const accounts = await ethers.getSigners();
   const signer = accounts[0];
 
-  const nftFactory = await ethers.getContractFactory('MemeNft');
+  const nftFactory = await ethers.getContractFactory('ProofOfMeme');
   const nftContract = new ethers.Contract(CONTRACTS.nft, nftFactory.interface, signer);
-  const bankFactory = await ethers.getContractFactory('MemeBank');
+  const bankFactory = await ethers.getContractFactory('ProofOfMemeBank');
   const bankContract = new ethers.Contract(CONTRACTS.bank, bankFactory.interface, signer);
   // const drawerFactory = await ethers.getContractFactory('MemeDrawer');
   // const drawerContract = new ethers.Contract(CONTRACTS.drawer, drawerFactory.interface, signer);
-  const generatorFactory = await ethers.getContractFactory('MemeGenerator');
+  const generatorFactory = await ethers.getContractFactory('ProofOfMemeGenerator');
   const generatorContract = new ethers.Contract(
     CONTRACTS.generator,
     generatorFactory.interface,
     signer
   );
-  const traitsFactory = await ethers.getContractFactory('MemeTraits');
+  const traitsFactory = await ethers.getContractFactory('ProofOfMemeTraits');
   const traitsContract = new ethers.Contract(CONTRACTS.traits, traitsFactory.interface, signer);
 
   const steps: Record<number, () => Promise<void>> = {

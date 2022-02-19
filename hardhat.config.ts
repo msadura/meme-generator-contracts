@@ -30,7 +30,7 @@ module.exports = {
     runOnCompile: true,
     strict: true
   },
-  defaultNetwork: 'mumbai',
+  defaultNetwork: 'matic',
   networks: {
     rinkeby: {
       url: `https://rinkeby-light.eth.linkpool.io/`,
